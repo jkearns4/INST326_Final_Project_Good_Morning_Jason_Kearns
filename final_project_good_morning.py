@@ -27,58 +27,53 @@ class Player():
         
     @property
     def inventory(self):
-        inv_string = ""
-        for clue in self._inventory:
-            inv_string += f"{clue.name}\n"
-        return inv_string
+        inv_string = f"Player {self.name}'s Inventory:\n"
+
+        if not self._inventory:
+            return "Empty"
+        else:
+            for clue in self._inventory:
+                inv_string += f"{clue.name}\n"
+            inv_string=inv_string[:-1]
+            return inv_string
     
     @property
     def location(self):
         return self._location
-    
-    @location.setter
-    def location(self, axis, units):
-        if not isinstance(axis, str):
-            raise ValueError("Invalid value for axis")
-        
-        axis = axis.lower()
-        
-        if not axis in ["x", "y"]:
-            raise ValueError("Invalid value for axis")
-        
-        if axis = "x":
-            self._location[0]+=units
-        else:
-            self._location[1]+=units
-        
-        
+
         
     def show_status(self):
-        return f"Player {self.name}:\nHealth: {self.health}\nInventory: {self.inventory}\nLocation: {self.location}"
+        return f"Player: {self.name}\nHealth: {self.health}\nInventory: {self.inventory}Location: {self.location}"
     
     def collect_clue(self, clue):
         self._inventory.append(clue)
     
     def take_damage(self, damage):
         self.health -= damage
-        print(f"You ({name}) just took {damage} damage!")
+        print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
     def move(self, direction):
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
             raise ValueError("Invalid input for moving")
         else:
-            if direction = "up":
-                self.location+=1
+            if direction == "up":
+                self._location[1]+=1
+            elif direction == "down":
+                self._location[1]-=1
+            elif direction == "left":
+                self._location[0]-=1
+            elif direction == "right":
+                self._location[0]+=1
                 
     
 
 
 class Clue():
-    def __init__(self, name, message, used):
+    def __init__(self, name, message):
         self._name = name
         self._message = message
-        self._used = used
+        self._used = False
         
     @property
     def name(self):
@@ -91,3 +86,18 @@ class Clue():
     def mark_used(self):
         self._used = True
         
+
+"""
+jones = Player("Jones", 100)
+jones.take_damage(10)
+
+direction_clue =  Clue("Direction", "The treasure is north from the starting point!")
+
+jones.collect_clue(direction_clue)
+print(jones.inventory)
+
+
+jones.move("up")
+jones.move("left")
+print(jones.location)
+"""
