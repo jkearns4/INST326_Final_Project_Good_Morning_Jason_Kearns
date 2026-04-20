@@ -1,5 +1,5 @@
 class Player():
-    def __init__(self, name, health):
+    def __init__(self, name: str, health: int) -> None:
         self._name = name
         self._health = health
         self._inventory = []
@@ -10,7 +10,7 @@ class Player():
         return self._name
     
     @name.setter
-    def name(self, new_name):
+    def name(self, new_name: str):
         if not isinstance(new_name, str):
             raise ValueError("Invalid value for name")
         self._name = new_name
@@ -20,7 +20,7 @@ class Player():
         return self._health
         
     @health.setter
-    def health(self, new_health):
+    def health(self, new_health: int):
         if not isinstance(new_health, int):
             raise ValueError("Invalid value for health")
         self._health = new_health
@@ -45,14 +45,14 @@ class Player():
     def show_status(self):
         return f"Player: {self.name}\nHealth: {self.health}\nInventory: {self.inventory}Location: {self.location}"
     
-    def collect_clue(self, clue):
+    def collect_clue(self, clue: object):
         self._inventory.append(clue)
     
-    def take_damage(self, damage):
+    def take_damage(self, damage: int):
         self.health -= damage
         print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
-    def move(self, direction):
+    def move(self, direction: str):
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
             raise ValueError("Invalid input for moving")
@@ -70,7 +70,7 @@ class Player():
 
 
 class Clue():
-    def __init__(self, name, message):
+    def __init__(self, name: str, message: str):
         self._name = name
         self._message = message
         self._used = False
