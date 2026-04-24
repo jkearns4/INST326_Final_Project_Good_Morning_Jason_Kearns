@@ -52,7 +52,7 @@ class Player():
         self.health -= damage
         print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
-    def move(self, direction: str, units = 1: int):
+    def move(self, direction: str, units: int = 1):
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
             raise ValueError("Invalid input for moving")
