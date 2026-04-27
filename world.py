@@ -2,7 +2,7 @@ class Grid():
     def __init__(self, size):
         self._map = [[[]]*size]*size
     
-    def move_player(self, player: object, direction):
+    def move_player(self, player, direction):
         player.move(direction)
 
     def is_valid_move(self, location, direction):
@@ -20,7 +20,7 @@ class Grid():
         else:
             return False
 
-        return 0 <= row < len(self._map) and 0 <= col < len(self._map) 
+        return self.is_in_bounds(row, col) 
         
     def __str__(self):
         output_string = ""
@@ -29,15 +29,14 @@ class Grid():
         return output_string
 
     def place_clue(self, row, col, clue):
-        if not (0 <= row < len(self._map) and 0 <= col < len(self._map)):
-            raise ValueError("Invalid grid location.")
+        self.is_in_bounds(row, col)
+        
         self._map[row][col].append(clue)
     
     def search_location(self, player):
         row, col = player.location
         
-        if not (0 <= row < len(self._map) and 0 <= col < len(self._map)):
-            raise ValueError("Player is outside the grid.")
+        self.is_in_bounds(row, col)
         
         found_items = self._map[row][col][:]
         
@@ -47,6 +46,11 @@ class Grid():
         self._map[row][col] = []
         return found_items
         
+    def is_in_bounds(self, row, col):
+        if not (0 <= row < len(self._map) and 0 <= col < len(self._map)):
+            raise ValueError("This position is out of bounds.")
+        
+    
    
 test_grid=Grid(5)
 print(test_grid)
