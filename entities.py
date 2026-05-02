@@ -41,7 +41,6 @@ class Player():
     def location(self):
         return self._location
 
-        
     def show_status(self):
         return f"Player: {self.name}\nHealth: {self.health}\nInventory: {self.inventory}Location: {self.location}"
     
@@ -85,6 +84,26 @@ class Clue():
         
     def mark_used(self):
         self._used = True
+
+
+class Trap():
+    def __init__(self, name, damage):
+        self._name = name
+        self._damage = damage
+    
+    def trigger(self, player):
+        player.take_damage(self._damage)
+    
+    def __str__(self):
+        return f"This is a {self._name} trap and it deals {self._damage} damage!"
+    
+    
+class Treasure():
+    def __init__(self):
+        self._message = f"You have found the treasure! You win! Congratulations!"
+    
+    def interact(self):
+        return self._message
         
 
 """

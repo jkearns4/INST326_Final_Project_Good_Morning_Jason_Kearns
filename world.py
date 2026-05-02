@@ -10,17 +10,21 @@ class Grid():
         col = location[1]
 
         if direction == "up":
+            self.is_in_bounds(row, col+1)
             col += 1
         elif direction == "down":
+            self.is_in_bounds(row, col-1)
             col -= 1
         elif direction == "left":
+            self.is_in_bounds(row-1, col)
             row -= 1
         elif direction == "right":
+            self.is_in_bounds(row+1, col)
             row += 1
         else:
             return False
 
-        return self.is_in_bounds(row, col) 
+        return True 
         
     def __str__(self):
         output_string = ""
@@ -32,6 +36,16 @@ class Grid():
         self.is_in_bounds(row, col)
         
         self._map[row][col].append(clue)
+        
+    def place_trap(self, row, col, trap):
+        self.is_in_bounds(row, col)
+        
+        self._map[row][col].append(trap)
+        
+    def place_treasure(self, row, col, treasure):
+        self.is_in_bounds(row, col)
+        
+        self._map[row][col].append(treasure)
     
     def search_location(self, player):
         row, col = player.location
@@ -41,7 +55,12 @@ class Grid():
         found_items = self._map[row][col][:]
         
         for item in found_items:
-            player.collect_clue(item)
+            if isinstance(item, Clue):
+                player.collect_clue(item)
+            elif isinstance(item, Trap):
+                item.trigger(player)
+            elif isinstance(item, Treasure):
+                item.interact()
         
         self._map[row][col] = []
         return found_items
@@ -51,6 +70,7 @@ class Grid():
             raise ValueError("This position is out of bounds.")
         
     
+
    
 test_grid=Grid(5)
 print(test_grid)
