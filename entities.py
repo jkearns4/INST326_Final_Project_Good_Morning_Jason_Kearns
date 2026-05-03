@@ -57,13 +57,13 @@ class Player():
             raise ValueError("Invalid input for moving")
         else:
             if direction == "up":
-                self._location[1]+=units
-            elif direction == "down":
-                self._location[1]-=units
-            elif direction == "left":
                 self._location[0]-=units
-            elif direction == "right":
+            elif direction == "down":
                 self._location[0]+=units
+            elif direction == "left":
+                self._location[1]-=units
+            elif direction == "right":
+                self._location[1]+=units
                 
     
 
