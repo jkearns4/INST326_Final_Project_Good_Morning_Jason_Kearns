@@ -1,4 +1,5 @@
 import entities as e
+import random
 
 class Grid():
     def __init__(self, size, player):
@@ -6,13 +7,13 @@ class Grid():
         self._visible_map = [[[" "] for _ in range(size)] for _ in range(size)]
         player._location = [size//2, size//2]
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
+        
     
     def move_player(self, player, direction):
         self._visible_map[player.location[0]][player.location[1]] = ["x"]
         player.move(direction)
         self.location_collision(player)
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
-
 
     def is_valid_move(self, location, direction):
         row = location[0]
@@ -76,6 +77,8 @@ class Grid():
         if not (0 <= row < len(self._visible_map) and 0 <= col < len(self._visible_map)):
             raise ValueError("This position is out of bounds.")
         
+    def generate_entities(self):
+        pass
     
 """
 test_player = e.Player("Jones")
