@@ -1,10 +1,9 @@
-import argprase as args
 import entities as e
 
 class Grid():
     def __init__(self, size, player):
         self._real_map = [[[] for _ in range(size)] for _ in range(size)]
-        self._visible_map = [[[] for _ in range(size)] for _ in range(size)]
+        self._visible_map = [[[" "] for _ in range(size)] for _ in range(size)]
         player._location = [size//2, size//2]
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
     
@@ -78,8 +77,8 @@ class Grid():
             raise ValueError("This position is out of bounds.")
         
     
-
-test_player = e.Player("Jones", 100)
+"""
+test_player = e.Player("Jones")
 test_grid=Grid(5, test_player)
 new_clue = e.Clue("Directional Clue", "The Treasure Is North!")
 new_trap = e.Trap("Spike Trap", 20)
@@ -94,5 +93,5 @@ print(test_grid)
 test_grid.move_player(test_player, "down")
 print(test_grid)
 print(test_player.inventory)
-
+"""
 

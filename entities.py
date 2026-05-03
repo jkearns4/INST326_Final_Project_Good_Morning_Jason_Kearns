@@ -2,9 +2,9 @@ import sys
 
 
 class Player():
-    def __init__(self, name: str, health: int) -> None:
+    def __init__(self, name: str) -> None:
         self._name = name
-        self._health = health
+        self._health = 100
         self._inventory = []
         self._location = [0,0]
         
@@ -47,7 +47,7 @@ class Player():
     def show_status(self):
         return f"Player: {self.name}\nHealth: {self.health}\nInventory: {self.inventory}Location: {self.location}"
     
-    def collect_clue(self, clue: object):
+    def collect_clue(self, clue):
         self._inventory.append(clue)
         print(f"You ({self.name}) just found the {clue.name}! It has been added to your inventory")
     
@@ -55,19 +55,19 @@ class Player():
         self.health -= damage
         print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
-    def move(self, direction: str, units: int = 1):
+    def move(self, direction: str):
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
             raise ValueError("Invalid input for moving")
         else:
             if direction == "up":
-                self._location[0]-=units
+                self._location[0]-=1
             elif direction == "down":
-                self._location[0]+=units
+                self._location[0]+=1
             elif direction == "left":
-                self._location[1]-=units
+                self._location[1]-=1
             elif direction == "right":
-                self._location[1]+=units
+                self._location[1]+=1
                 
     
 
@@ -104,7 +104,7 @@ class Trap():
     
 class Treasure():
     def __init__(self):
-        self._message = f"You have found the treasure! You win! Congratulations!"
+        self._message = "You have found the treasure! You win! Congratulations!"
     
     def interact(self):
         print(f"{self._message}")
