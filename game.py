@@ -27,8 +27,7 @@ def main():
         while not grid.is_valid_move(player.location, user_input):
             user_input = input("That is not a valid input, please enter a valid input here: ")
         grid.move_player(player, user_input)
-            
-        
+         
 
 if __name__ == "__main__":
     main()
