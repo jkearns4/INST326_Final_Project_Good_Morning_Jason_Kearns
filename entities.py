@@ -1,3 +1,6 @@
+import sys
+
+
 class Player():
     def __init__(self, name: str, health: int) -> None:
         self._name = name
@@ -46,6 +49,7 @@ class Player():
     
     def collect_clue(self, clue: object):
         self._inventory.append(clue)
+        print(f"You ({self.name}) just found the {clue.name}! It has been added to your inventory")
     
     def take_damage(self, damage: int):
         self.health -= damage
@@ -103,7 +107,8 @@ class Treasure():
         self._message = f"You have found the treasure! You win! Congratulations!"
     
     def interact(self):
-        return self._message
+        print(f"{self._message}")
+        sys.exit()
         
 
 """

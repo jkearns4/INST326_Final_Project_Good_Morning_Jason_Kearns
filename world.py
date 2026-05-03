@@ -1,3 +1,4 @@
+import argprase as args
 import entities as e
 
 class Grid():
@@ -8,7 +9,9 @@ class Grid():
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
     
     def move_player(self, player, direction):
+        self._visible_map[player.location[0]][player.location[1]] = ["x"]
         player.move(direction)
+        self.location_collision(player)
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
 
 
@@ -43,14 +46,14 @@ class Grid():
     def place_trap(self, row, col, trap):
         self.is_in_bounds(row, col)
         
-        self._map[row][col].append(trap)
+        self._real_map[row][col].append(trap)
         
     def place_treasure(self, row, col, treasure):
         self.is_in_bounds(row, col)
         
-        self._map[row][col].append(treasure)
+        self._real_map[row][col].insert(0, treasure)
     
-    def search_location(self, player):
+    def location_collision(self, player):
         row, col = player.location
         
         self.is_in_bounds(row, col)
@@ -58,16 +61,17 @@ class Grid():
         found_items = self._real_map[row][col][:]
         
         for item in found_items:
-            if isinstance(item, e.Clue):
-                player.collect_clue(item)
+            if isinstance(item, e.Treasure):
+                item.interact()
             elif isinstance(item, e.Trap):
                 item.trigger(player)
-            elif isinstance(item, e.Treasure):
-                item.interact()
+            elif isinstance(item, e.Clue):
+                player.collect_clue(item)
+        
         
         self._real_map[row][col] = []
-        self._visible_map[row][col] = ["x"]
         return found_items
+    
         
     def is_in_bounds(self, row, col):
         if not (0 <= row < len(self._visible_map) and 0 <= col < len(self._visible_map)):
@@ -78,12 +82,17 @@ class Grid():
 test_player = e.Player("Jones", 100)
 test_grid=Grid(5, test_player)
 new_clue = e.Clue("Directional Clue", "The Treasure Is North!")
-print(test_grid)
-test_grid.place_clue(0, 0, new_clue)
-print(test_grid)
-test_grid.search_location(test_player)
+new_trap = e.Trap("Spike Trap", 20)
+new_treasure = e.Treasure()
+test_grid.place_clue(1, 2, new_clue)
+test_grid.place_trap(1, 2, new_trap)
+test_grid.place_treasure(1, 2, new_treasure)
+test_grid.location_collision(test_player)
 print(test_grid)
 test_grid.move_player(test_player, "up")
 print(test_grid)
+test_grid.move_player(test_player, "down")
+print(test_grid)
+print(test_player.inventory)
 
 
