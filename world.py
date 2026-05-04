@@ -66,6 +66,7 @@ class Grid():
             elif isinstance(item, e.Trap):
                 item.trigger(player)
             elif isinstance(item, e.Clue):
+                item.show_clue()
                 player.collect_clue(item)
         
         
