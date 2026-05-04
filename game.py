@@ -17,9 +17,7 @@ def main():
     player = e.Player(args.player_name)
     grid = w.Grid(args.size, player)
     
-    treasure = e.Treasure() 
-    
-    grid.place_treasure(0, 0, treasure)
+    grid.generate_entities()
 
     while True:
         print(grid)
