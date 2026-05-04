@@ -79,7 +79,37 @@ class Grid():
             raise ValueError("This position is out of bounds.")
         
     def generate_entities(self):
-        pass
+        size = len(self._real_map)
+
+        available_locations = [
+            [row, col]
+            for row in range(size)
+            for col in range(size)
+        ]
+
+        treasure_location = random.choice(available_locations)
+        available_locations.remove(treasure_location)
+        self.place_treasure(treasure_location[0], treasure_location[1], e.Treasure())
+
+        clue_messages = [
+            "The treasure is hidden somewhere on the grid.",
+            "Watch your step. Some spaces may have traps.",
+            "Keep exploring different parts of the map."
+        ]
+
+        for i in range(3):
+            clue_location = random.choice(available_locations)
+            available_locations.remove(clue_location)
+
+            clue = e.Clue(f"Clue {i + 1}", clue_messages[i])
+            self.place_clue(clue_location[0], clue_location[1], clue)
+
+        for i in range(3):
+            trap_location = random.choice(available_locations)
+            available_locations.remove(trap_location)
+
+            trap = e.Trap(f"Trap {i + 1}", 20)
+            self.place_trap(trap_location[0], trap_location[1], trap)
     
 """
 test_player = e.Player("Jones")
