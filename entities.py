@@ -55,6 +55,9 @@ class Player():
         self.health -= damage
         print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
+         if self.health <= 0:
+            print("You lost all your health. Game over!")
+            sys.exit()
     def move(self, direction: str):
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
