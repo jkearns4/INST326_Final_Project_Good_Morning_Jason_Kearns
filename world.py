@@ -12,8 +12,8 @@ class Grid():
     def move_player(self, player, direction):
         self._visible_map[player.location[0]][player.location[1]] = ["x"]
         player.move(direction)
-        self.location_collision(player)
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
+        self.location_collision(player)
 
     def is_valid_move(self, location, direction):
         row = location[0]
@@ -62,6 +62,7 @@ class Grid():
         
         for item in found_items:
             if isinstance(item, e.Treasure):
+                self._visible_map[row][col]="!"
                 item.interact()
             elif isinstance(item, e.Trap):
                 item.trigger(player)
@@ -88,15 +89,18 @@ class Grid():
             for row in range(size)
             for col in range(size)
         ]
+        
+        #Shouldn't place objects at starting position. 
+        available_locations.remove([2, 2])
 
         treasure_location = random.choice(available_locations)
         available_locations.remove(treasure_location)
         self.place_treasure(treasure_location[0], treasure_location[1], e.Treasure())
 
         clue_messages = [
-            "The treasure is hidden somewhere on the grid.",
+            f"The treasure is on row {treasure_location[0]+1}.",
             "Watch your step. Some spaces may have traps.",
-            "Keep exploring different parts of the map."
+            f"The treasure is on column {treasure_location[1]+1}"
         ]
 
         for i in range(3):
@@ -106,7 +110,7 @@ class Grid():
             clue = e.Clue(f"Clue {i + 1}", clue_messages[i])
             self.place_clue(clue_location[0], clue_location[1], clue)
 
-        for i in range(3):
+        for i in range(int((len(self._real_map)**2)*0.2)):
             trap_location = random.choice(available_locations)
             available_locations.remove(trap_location)
 
