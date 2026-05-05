@@ -20,13 +20,13 @@ class Grid():
         col = location[1]
 
         if direction == "up":
-            self.is_in_bounds(row-1, col)
+            return self.is_in_bounds(row-1, col)    
         elif direction == "down":
-            self.is_in_bounds(row+1, col)
+            return self.is_in_bounds(row+1, col)
         elif direction == "left":
-            self.is_in_bounds(row, col-1)
+            return self.is_in_bounds(row, col-1)
         elif direction == "right":
-            self.is_in_bounds(row, col+1)
+            return self.is_in_bounds(row, col+1)
         else:
             return False
 
@@ -76,7 +76,9 @@ class Grid():
         
     def is_in_bounds(self, row, col):
         if not (0 <= row < len(self._visible_map) and 0 <= col < len(self._visible_map)):
-            raise ValueError("This position is out of bounds.")
+            return False
+        
+        return True
         
     def generate_entities(self):
         size = len(self._real_map)
