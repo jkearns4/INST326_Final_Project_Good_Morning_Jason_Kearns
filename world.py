@@ -3,6 +3,15 @@ import random
 
 class Grid():
     def __init__(self, size, player):
+    """Creates base grid object
+    
+    Args:
+        size (int): The row/col length of the grid
+        player (Player object): The player that is playing the game
+        
+    
+    Author: Andy Huang
+    """
         self._real_map = [[[] for _ in range(size)] for _ in range(size)]
         self._visible_map = [[[" "] for _ in range(size)] for _ in range(size)]
         player._location = [size//2, size//2]
@@ -10,6 +19,7 @@ class Grid():
         
     
     def move_player(self, player, direction):
+
         if not self.is_valid_move(player.location, direction):
             print("You can't move that way.")
             return False
@@ -17,6 +27,15 @@ class Grid():
         old_row, old_col = player.location
         self._visible_map[old_row][old_col] = ["x"]
 
+    """Moves the player along the grid
+    
+    Args:
+        player (Player object): The player to be moved
+        direction (str): The direction the player wants to move
+        
+    Author: Andy Huang
+    """
+        self._visible_map[player.location[0]][player.location[1]] = ["x"]
         player.move(direction)
 
         new_row, new_col = player.location
@@ -26,6 +45,15 @@ class Grid():
 
 
     def is_valid_move(self, location, direction):
+    """Checks if the next location that wants to be moved to is a valid space on the board
+    
+    Args:
+        location (list[int]): Current location of the player
+        direction (str): Direction that the player wants to be moved
+    
+    Returns:
+        boolean: True if the next position is within the grid, False if it isn't
+    """
         row = location[0]
         col = location[1]
 
@@ -42,6 +70,10 @@ class Grid():
         
         
     def __str__(self):
+    """Converts the grid into a string to be printed
+
+    Author: Andy Huang
+    """
         output_string = ""
         for item in self._visible_map:
             output_string += str(item) + "\n"
@@ -51,10 +83,20 @@ class Grid():
         if not self.is_in_bounds(row, col):
             raise ValueError("Invalid grid location.")
 
+    """Places a Clue on a spot on the map
+    
+    Args:
+        row (int):Row on the grid that you want to place the clue on
+        col (int):Column on the grid that you want to place the clue on
+        clue (Clue object): The Clue that you want to place
+    """
+        self.is_in_bounds(row, col)
+        
         self._real_map[row][col].append(clue)
 
         
     def place_trap(self, row, col, trap):
+
         if not self.is_in_bounds(row, col):
             raise ValueError("Invalid grid location.")
 
@@ -65,8 +107,38 @@ class Grid():
             raise ValueError("Invalid grid location.")
 
         self._real_map[row][col].append(treasure)
+
+    """Places a Trap on a spot on the map
+    
+    Args:
+        row (int):Row on the grid that you want to place the trap on
+        col (int):Column on the grid that you want to place the trap on
+        trap (Trap object): The Trap that you want to place
+    """
+        self.is_in_bounds(row, col)
+        
+        self._real_map[row][col].append(trap)
+        
+    def place_treasure(self, row, col, treasure):
+    """Places the treasure on a spot on the map
+    
+    Args:
+        row (int):Row on the grid that you want to place the treasure on
+        col (int):Column on the grid that you want to place the treasure on
+        treasure (Treasure object): The Treasure that you want to place
+    """
+        self.is_in_bounds(row, col)
+        
+        self._real_map[row][col].insert(0, treasure)
     
     def location_collision(self, player):
+    """Collision logic when a player moves to a new location.
+    Takes the items inside of the grid slot and puts them into a list.
+    Iterates through the list and calls the corresponding method.
+    
+    Args:
+        player (Player object): The player to do damage to and give clues to.
+    """
         row, col = player.location
         
         if not self.is_in_bounds(row, col):
@@ -90,12 +162,25 @@ class Grid():
     
         
     def is_in_bounds(self, row, col):
+    """Check if a location is within the boundaries
+
+    Args:
+        row (int): Row of the location to check
+        col (int): Column of the location to check
+    
+    Returns:
+        bool: True if the location is within the bounds, False if it is not
+    """
         if not (0 <= row < len(self._visible_map) and 0 <= col < len(self._visible_map)):
             return False
         
         return True
         
     def generate_entities(self):
+    """Generates entities on the grid,
+    Creates a matrix of available positions on the grid.
+    Randomly chooses a spot on the matrix to place an entity and then removes it from the available positions.
+    """
         size = len(self._real_map)
 
         available_locations = [
