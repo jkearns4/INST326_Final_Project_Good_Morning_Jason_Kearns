@@ -6,11 +6,11 @@ INST326 Spring Group 19 "Good Morning"
 
 ## Game Description
 
-This project is a grid-based treasure hunt game. The player starts in the middle of a hidden grid and moves around by typing directions. The objective is to find the treasure before losing all health.
+This project is a grid-based treasure hunt game. The player starts in the middle of a hidden grid and moves around by typing directions. The objective is to find the treasure before losing all of their health.
 
 In the game it has hidden treasure, traps, and clues. If the player lands on a trap, they lose health. If the player lands on a clue, the clue message is shown and the clue is added to the player’s inventory. If the player finds the treasure, the game ends with a win message.
 
-The game is supposed to be able to be played again ecause the treasure, clues, and traps are randomly placed each time the game starts.
+The game is supposed to be able to be played again because the treasure, clues, and traps are randomly placed each time the game starts.
 
 ## Purpose of Each File
 
@@ -32,7 +32,7 @@ Open the terminal in the project folder and run:
 
 python game.py
 
-Plahers have ability to choose a grid size and player name:
+Players have ability to choose a grid size and player name:
 
 python game.py --size 7 --player-name Joe
 
