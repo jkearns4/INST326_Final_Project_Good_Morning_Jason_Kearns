@@ -10,10 +10,20 @@ class Grid():
         
     
     def move_player(self, player, direction):
-        self._visible_map[player.location[0]][player.location[1]] = ["x"]
+        if not self.is_valid_move(player.location, direction):
+            print("You can't move that way.")
+            return False
+
+        old_row, old_col = player.location
+        self._visible_map[old_row][old_col] = ["x"]
+
         player.move(direction)
-        self._visible_map[player.location[0]][player.location[1]] = ["P"]
+
+        new_row, new_col = player.location
+        self._visible_map[new_row][new_col] = ["P"]
         self.location_collision(player)
+        return True
+
 
     def is_valid_move(self, location, direction):
         row = location[0]
@@ -29,8 +39,7 @@ class Grid():
             return self.is_in_bounds(row, col+1)
         else:
             return False
-
-        return True 
+        
         
     def __str__(self):
         output_string = ""
@@ -39,25 +48,30 @@ class Grid():
         return output_string
 
     def place_clue(self, row, col, clue):
-        self.is_in_bounds(row, col)
-        
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
+
         self._real_map[row][col].append(clue)
+
         
     def place_trap(self, row, col, trap):
-        self.is_in_bounds(row, col)
-        
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
+
         self._real_map[row][col].append(trap)
         
     def place_treasure(self, row, col, treasure):
-        self.is_in_bounds(row, col)
-        
-        self._real_map[row][col].insert(0, treasure)
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
+
+        self._real_map[row][col].append(treasure)
     
     def location_collision(self, player):
         row, col = player.location
         
-        self.is_in_bounds(row, col)
-        
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Player is outside the grid.")
+    
         found_items = self._real_map[row][col][:]
         
         for item in found_items:
