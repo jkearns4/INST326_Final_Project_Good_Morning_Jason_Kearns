@@ -19,7 +19,12 @@ class Grid():
         
     
     def move_player(self, player, direction):
-
+    """Moves the player along the grid
+    
+    Args:
+        player (Player object): The player to be moved
+        direction (str): The direction the player wants to move
+    """
         if not self.is_valid_move(player.location, direction):
             print("You can't move that way.")
             return False
@@ -27,15 +32,6 @@ class Grid():
         old_row, old_col = player.location
         self._visible_map[old_row][old_col] = ["x"]
 
-    """Moves the player along the grid
-    
-    Args:
-        player (Player object): The player to be moved
-        direction (str): The direction the player wants to move
-        
-    Author: Andy Huang
-    """
-        self._visible_map[player.location[0]][player.location[1]] = ["x"]
         player.move(direction)
 
         new_row, new_col = player.location
@@ -80,9 +76,6 @@ class Grid():
         return output_string
 
     def place_clue(self, row, col, clue):
-        if not self.is_in_bounds(row, col):
-            raise ValueError("Invalid grid location.")
-
     """Places a Clue on a spot on the map
     
     Args:
@@ -90,24 +83,13 @@ class Grid():
         col (int):Column on the grid that you want to place the clue on
         clue (Clue object): The Clue that you want to place
     """
-        self.is_in_bounds(row, col)
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
         
         self._real_map[row][col].append(clue)
 
         
     def place_trap(self, row, col, trap):
-
-        if not self.is_in_bounds(row, col):
-            raise ValueError("Invalid grid location.")
-
-        self._real_map[row][col].append(trap)
-        
-    def place_treasure(self, row, col, treasure):
-        if not self.is_in_bounds(row, col):
-            raise ValueError("Invalid grid location.")
-
-        self._real_map[row][col].append(treasure)
-
     """Places a Trap on a spot on the map
     
     Args:
@@ -115,8 +97,9 @@ class Grid():
         col (int):Column on the grid that you want to place the trap on
         trap (Trap object): The Trap that you want to place
     """
-        self.is_in_bounds(row, col)
-        
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
+
         self._real_map[row][col].append(trap)
         
     def place_treasure(self, row, col, treasure):
@@ -127,9 +110,12 @@ class Grid():
         col (int):Column on the grid that you want to place the treasure on
         treasure (Treasure object): The Treasure that you want to place
     """
-        self.is_in_bounds(row, col)
-        
-        self._real_map[row][col].insert(0, treasure)
+    
+        if not self.is_in_bounds(row, col):
+            raise ValueError("Invalid grid location.")
+
+        self._real_map[row][col].append(treasure)
+                    
     
     def location_collision(self, player):
     """Collision logic when a player moves to a new location.
