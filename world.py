@@ -24,6 +24,8 @@ class Grid():
     Args:
         player (Player object): The player to be moved
         direction (str): The direction the player wants to move
+    
+    Authors: Andy Huang, Kelvin Le
     """
         if not self.is_valid_move(player.location, direction):
             print("You can't move that way.")
