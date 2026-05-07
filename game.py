@@ -3,6 +3,10 @@ import world as w
 import entities as e
 
 def parse_args():
+    """Parses through user arguments to pass through the main function
+    
+    Author: Andy Huang
+    """
     parser = argparse.ArgumentParser(description="Grid Game")
     parser.add_argument("--size", type=int, default=5, help="Grid size")
     parser.add_argument("--player-name", type=str, default="Player")
