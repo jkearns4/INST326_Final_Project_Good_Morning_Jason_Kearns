@@ -144,8 +144,9 @@ class Grid():
                 print(item)
                 item.interact(player)
             elif isinstance(item, e.Clue):
-                item.interact()
                 player.collect_clue(item)
+                item.interact()
+                
         
         
         self._real_map[row][col] = []
