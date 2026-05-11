@@ -33,10 +33,10 @@ class Player():
         inv_string = f"Player {self.name}'s Inventory:\n"
 
         if not self._inventory:
-            return "Empty"
+            return "Your inventory is empty.\n"
         else:
             for clue in self._inventory:
-                inv_string += f"{clue.name}\n"
+                inv_string += f"{clue.name}: {clue.message}\n"
             inv_string=inv_string[:-1]
             return inv_string
     
@@ -91,6 +91,10 @@ class Clue():
     @property
     def name(self):
         return self._name
+    
+    @property
+    def message(self):
+        return self._message
     
     def interact(self):
         print(self._message)
