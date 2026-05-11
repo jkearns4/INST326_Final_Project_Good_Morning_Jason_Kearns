@@ -141,6 +141,7 @@ class Grid():
                 self._visible_map[row][col]="!"
                 item.interact()
             elif isinstance(item, e.Trap):
+                print(item)
                 item.interact(player)
             elif isinstance(item, e.Clue):
                 item.interact()
@@ -190,11 +191,13 @@ class Grid():
         
         trap_locations = []
         
+        trap_names = ["Spike", "Bomb", "Poison", "Shock"]
+        
         for i in range(int((len(self._real_map)**2)*0.2)):
             trap_location = random.choice(available_locations)
             available_locations.remove(trap_location)
 
-            trap = e.Trap(f"Trap {i + 1}", int(random.random()*50))
+            trap = e.Trap(random.choice(trap_names), int(random.random()*50))
             self.place_trap(trap_location[0], trap_location[1], trap)
             
             trap_locations.append((trap_location[0], trap_location[1]))
