@@ -1,5 +1,5 @@
 import sys
-
+from abc import ABC, abstractmethod
 
 class Player():
     def __init__(self, name: str) -> None:
@@ -75,7 +75,12 @@ class Player():
                 self._location[1]+=1
                 
     
-
+class Item(ABC):
+    @abstractmethod
+    def interact():
+        """Initiate action with the item"""
+        pass
+    
 
 class Clue():
     def __init__(self, name: str, message: str):
@@ -87,7 +92,7 @@ class Clue():
     def name(self):
         return self._name
     
-    def show_clue(self):
+    def interact(self):
         print(self._message)
         self.mark_used()
         
@@ -100,7 +105,7 @@ class Trap():
         self._name = name
         self._damage = damage
     
-    def trigger(self, player):
+    def interact(self, player):
         player.take_damage(self._damage)
     
     def __str__(self):
@@ -113,7 +118,6 @@ class Treasure():
     
     def interact(self):
         print(f"{self._message}")
-        sys.exit()
         
 
 """
