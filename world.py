@@ -1,5 +1,6 @@
 import entities as e
 import random
+import math
 
 class Grid():
     def __init__(self, size, player):
@@ -17,6 +18,7 @@ class Grid():
         player._location = [size//2, size//2]
         self._visible_map[player.location[0]][player.location[1]] = ["P"]
         
+        self._goal_tile = [0,0]
     
     def move_player(self, player, direction):
         """Moves the player along the grid
@@ -139,9 +141,9 @@ class Grid():
                 self._visible_map[row][col]="!"
                 item.interact()
             elif isinstance(item, e.Trap):
-                item.trigger(player)
+                item.interact(player)
             elif isinstance(item, e.Clue):
-                item.show_clue()
+                item.interact()
                 player.collect_clue(item)
         
         
@@ -184,6 +186,8 @@ class Grid():
         available_locations.remove(treasure_location)
         self.place_treasure(treasure_location[0], treasure_location[1], e.Treasure())
 
+        self.goal_tile = treasure_location.copy()
+        
         trap_locations = []
         
         for i in range(int((len(self._real_map)**2)*0.2)):
@@ -197,7 +201,7 @@ class Grid():
         
         clue_messages = [
             f"The treasure is on row {treasure_location[0]+1}.",
-            f"The treasure is on column {treasure_location[1]+1}.",
+            f"The treasure is on column {treasure_location[1]+1}."
         ]
         
         for trap in trap_locations:
