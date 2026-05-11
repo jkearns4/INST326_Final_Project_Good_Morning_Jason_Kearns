@@ -25,7 +25,7 @@ def main():
 
     while player.location != grid.goal_tile:
         print(grid)
-        user_input = input("Input a move to make on the grid: ")
+        user_input = input("Input an action: ")
         while (not grid.is_valid_move(player.location, user_input)) and user_input.lower() != "inventory":
             user_input = input("That is not a valid input, please enter a valid input here: ")
         if user_input.lower() != "inventory":

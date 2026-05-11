@@ -37,7 +37,6 @@ class Player():
         else:
             for clue in self._inventory:
                 inv_string += f"{clue.name}: {clue.message}\n"
-            inv_string=inv_string[:-1]
             return inv_string
     
     @property
