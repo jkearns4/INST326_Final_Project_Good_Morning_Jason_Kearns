@@ -56,9 +56,9 @@ If a player goes outside the grid, the program asks for another input. When the 
 ## Attribution Table
 
 
-Method    Primary Author   Technique Claimed
-
-
+Method                      Primary Author            Technique Claimed
+Grid.generate_entities        Amaar S                 Comprehensions and/or generator expressions 
+ Grid.is_valid_move           Amaar S                               na
 
 
 
