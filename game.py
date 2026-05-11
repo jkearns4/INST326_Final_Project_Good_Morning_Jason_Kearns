@@ -23,7 +23,7 @@ def main():
     
     grid.generate_entities()
 
-    while True:
+    while player.location != grid.goal_tile:
         print(grid)
         user_input = input("Input a move to make on the grid: ")
         while not grid.is_valid_move(player.location, user_input):
