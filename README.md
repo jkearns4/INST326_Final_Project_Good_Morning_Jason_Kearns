@@ -56,9 +56,11 @@ If a player goes outside the grid, the program asks for another input. When the 
 ## Attribution Table
 
 
-Method                      Primary Author            Technique Claimed
-Grid.generate_entities        Amaar S                 Comprehensions and/or generator expressions 
- Grid.is_valid_move           Amaar S                               na
+Method                              Primary Author            Technique Claimed
+Grid.generate_entities              Amaar S                 Comprehensions and/or generator expressions 
+ Grid.is_valid_move                 Amaar S                               na
+Game.parse_args()                   Andy Huang              Implementing argparse module
+entites.py -> Player & Clue Class   Andy Huang              Composition of two custom classes
 
 
 
