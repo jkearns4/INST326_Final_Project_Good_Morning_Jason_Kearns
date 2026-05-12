@@ -30,6 +30,7 @@ class Player():
         
     @property
     def inventory(self):
+        self._inventory.sort(key=lambda c:c.name)
         inv_string = f"Player {self.name}'s Inventory:\n"
 
         if not self._inventory:
