@@ -1,6 +1,7 @@
 import argparse
 import world as w
 import entities as e
+import sys
 
 def parse_args():
     """Parses through user arguments to pass through the main function
@@ -24,15 +25,16 @@ def main():
     grid.generate_entities()
 
     while player.location != grid.goal_tile:
+        if player.health<=0:
+            print("You lost all your health! Game over!")
+            sys.exit()
         print(grid)
         user_input = input("Input an action: ")
         while (not grid.is_valid_move(player.location, user_input)) and user_input.lower() != "inventory":
             user_input = input("That is not a valid input, please enter a valid input here: ")
-        if user_input.lower() != "inventory":
-            grid.move_player(player, user_input)
-        else:
-            print(player.inventory)
-         
+            
+        grid.move_player(player, user_input) if user_input.lower() != "inventory" else print(player.inventory)
+        
 
 if __name__ == "__main__":
     main()
