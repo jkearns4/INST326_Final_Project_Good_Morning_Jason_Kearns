@@ -24,7 +24,7 @@ This file controls the game board. It contains the Grid class, which stores the 
 
 ### entities.py
 
-Inside this file, it contains the main objects used in the game. The Player class stores the player’s name, health, inventory, and location. The Clue class stores clue messages. The Trap class damages the player. The Treasure class ends the game when found.
+Inside this file, it contains the main objects used in the game. The Player class stores the player’s name, health, inventory, and location. The Clue class stores clue messages. The Trap class damages the player. The Treasure class stores the congratulations message.
 
 ## How to Run the Program
 
@@ -51,26 +51,28 @@ down
 left
 right
 
+The player may also check their inventory by typing:
+
+inventory
+
+This shows the clues that they have collected along their journey. 
+
 If a player goes outside the grid, the program asks for another input. When the player lands on a clue, the clue message is printed and the clue is added to the player’s inventory. If the player lands on a trap, the player loses health. If the player’s health reaches 0, the game ends. If the player finds the treasure, the player wins.
 
 ## Attribution Table
 
 
 Method                              Primary Author            Technique Claimed
-Grid.generate_entities              Amaar S                 Comprehensions and/or generator expressions 
- Grid.is_valid_move                 Amaar S                               na
-Game.parse_args()                   Andy Huang              Implementing argparse module
-entites.py -> Player & Clue Class   Andy Huang              Composition of two custom classes
-
+Grid.generate_entities              Amaar S                 8. Comprehensions and/or generator expressions 
+                                                            3. F-strings containing expressions
+Grid.is_valid_move                  Amaar S                               na
+parse_args()                        Andy Huang              5. Implementing argparse module
+Player & Clue Class                 Andy Huang              11. Composition of two custom classes
+Player.inventory                    Andy Huang              9. Use of key function
+main()                              Andy Huang              1. Use of conditional expressions
 
 
 ## Annotated Bibliography
-
-
-
-
-
-
 
 
 
