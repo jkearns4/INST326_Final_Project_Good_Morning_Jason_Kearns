@@ -53,11 +53,9 @@ class Player():
     
     def take_damage(self, damage: int):
         self.health -= damage
+        if self.health<=0: self.health=0
         print(f"You ({self.name}) just took {damage} damage! You now have {self.health} health left!")
         
-        if self.health <= 0:
-            print("You lost all your health. Game over!")
-            sys.exit()
             
             
     def move(self, direction: str):
