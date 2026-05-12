@@ -80,7 +80,7 @@ class Item(ABC):
         pass
     
 
-class Clue():
+class Clue(Item):
     def __init__(self, name: str, message: str):
         self._name = name
         self._message = message
@@ -102,7 +102,7 @@ class Clue():
         self._used = True
 
 
-class Trap():
+class Trap(Item):
     def __init__(self, name, damage):
         self._name = name
         self._damage = damage
@@ -114,7 +114,7 @@ class Trap():
         return f"This is a {self._name} trap and it deals {self._damage} damage!"
     
     
-class Treasure():
+class Treasure(Item):
     def __init__(self):
         self._message = "You have found the treasure! You win! Congratulations!"
     
