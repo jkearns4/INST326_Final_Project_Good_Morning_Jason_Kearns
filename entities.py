@@ -59,6 +59,11 @@ class Player():
             
             
     def move(self, direction: str):
+        """Moves the player on the grid in the direction given.
+
+        Args:
+            direction (str): The direction you want to move the player.
+        """
         direction =  direction.lower()
         if not direction in ["up", "down", "left", "right"]:
             raise ValueError("Invalid input for moving")
