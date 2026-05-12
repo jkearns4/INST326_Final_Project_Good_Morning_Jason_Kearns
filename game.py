@@ -23,16 +23,23 @@ def main():
     grid = w.Grid(args.size, player)
     
     grid.generate_entities()
-
+    """Checks if the player is on the tile with the treasure"""
     while player.location != grid.goal_tile:
+        """If the player has no more health they die and the program exits"""
         if player.health<=0:
             print("You lost all your health! Game over!")
             sys.exit()
+        
         print(grid)
+        
+        """Reads the users input for action"""
         user_input = input("Input an action: ")
+        
+        """If the user input is not valid, keep asking until a valid action is recieved"""
         while (not grid.is_valid_move(player.location, user_input)) and user_input.lower() != "inventory":
             user_input = input("That is not a valid input, please enter a valid input here: ")
-            
+        
+        """Evaluate the action depending on the input"""
         grid.move_player(player, user_input) if user_input.lower() != "inventory" else print(player.inventory)
         
 
